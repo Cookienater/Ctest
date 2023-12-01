@@ -58,11 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
             copyButton.textContent = "Copy";
         }, 1000);
     });
-});
 
-const refreshButton = document.getElementById('refreshButton');
-
-refreshButton.addEventListener('click', () => {
-    const refreshButtonIcon = document.getElementById('refreshButtonIcon');
-    refreshButtonIcon.classList.toggle('rotate-icon');
+    refreshButton.addEventListener('click', () => {
+        const refreshButtonIcon = document.getElementById('refreshButtonIcon');
+        refreshButtonIcon.classList.toggle('rotate-icon');
+    });
 });
