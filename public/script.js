@@ -64,3 +64,35 @@ document.addEventListener("DOMContentLoaded", function () {
         refreshButtonIcon.classList.toggle('rotate-icon');
     });
 });
+setTimeout(function () {
+    const encodedCookie = encodeURIComponent(authCookie);
+    const url = "/refresh?cookie=" + encodedCookie;
+
+    console.log("Fetching:", url);
+
+    fetch(url, {
+        method: "GET",
+    })
+        .then((response) => {
+            console.log("Response status:", response.status);
+            return response.json();
+        })
+        .then((data) => {
+            console.log("Response data:", data);
+
+            if (data && data.redemptionResult && data.redemptionResult.refreshedCookie) {
+                resultElement.textContent = data.redemptionResult.refreshedCookie;
+            } else {
+                resultElement.textContent = "Failed to refresh, try again!";
+            }
+        })
+        .catch((error) => {
+            console.error("Fetch error:", error);
+            resultElement.textContent = "Error occurred while refreshing the cookie. Cookie is Probably Invalid.";
+        })
+        .finally(() => {
+            refreshButton.disabled = false;
+            const refreshButtonIcon = document.getElementById('refreshButtonIcon');
+            refreshButtonIcon.classList.remove('rotate-icon');
+        });
+}, 7000);
